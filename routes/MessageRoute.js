@@ -7,8 +7,8 @@ const extractUserId = require("../utils/Authenticate");
 router.post("/send-message", async (req, res) => {
   try {
     // console.log(req)
-    let sender  = extractUserId(req)
-    let { ticketId, receiver, message } = req.body;
+    // let sender  = extractUserId(req)
+    let { ticketId, receiver, message,sender } = req.body;
     console.log(ticketId, sender, receiver, message);
     let newMessage = new MessageModel({
       ticketId: ticketId,
@@ -77,10 +77,10 @@ router.post("/messages/dummy/:receiver",async(req,res)=>{
 })
 
 
-router.put('/messages/mark-seen/:senderId',async(req,res)=>{
+router.put('/messages/mark-seen/:senderId/:userId',async(req,res)=>{
   try {
-    let userId = extractUserId(req)
-    let {senderId} = req.params
+    // let userId = extractUserId(req)
+    let {senderId,userId} = req.params
     console.log(`Marking msg as seen from ${senderId} to ${userId}`)
     let result = await MessageModel.updateMany(
       {
@@ -118,10 +118,10 @@ router.put('/messages/mark-seen/:senderId',async(req,res)=>{
 
 
 
-router.get('/messages/:sender',async(req,res)=>{
+router.get('/messages/:sender/:receiver',async(req,res)=>{
     try {
-      let receiver = extractUserId(req)
-        let {sender} = req.params;
+      // let receiver = extractUserId(req)
+        let {sender,receiver} = req.params;
         console.log(sender,receiver)
         let messages = await MessageModel.find({
             $or:[
