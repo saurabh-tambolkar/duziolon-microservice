@@ -16,6 +16,8 @@ const { ConnectDb } = require("./utils/ConnectDb");
 let corsArr = [
   "http://localhost:3001",
   "http://localhost:3000",
+  "https://duziolon.vercel.app",
+  "https://duziolon-chat-mfe.netlify.app",
 ];
 
 const corsOptions = {
