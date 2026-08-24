@@ -4,7 +4,7 @@ const {orderConfirmationTemplate,ticketResolvedTemplate, otpVerificationTemplate
 require('dotenv').config();
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
-  service: "smtp.gmail.com",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   requireTLS: true,
