@@ -103,7 +103,7 @@ router.put('/messages/mark-seen/:senderId/:userId',async(req,res)=>{
     if (receiverSocketId) {
       global.io.to(receiverSocketId).emit("messagesSeen", data);
     } else {
-      console.log("⚠️ Receiver not online:", receiver);
+      console.log("⚠️ Receiver not online:", senderId);
     }
 
     console.log(

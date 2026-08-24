@@ -4,14 +4,26 @@ const {orderConfirmationTemplate,ticketResolvedTemplate, otpVerificationTemplate
 require('dotenv').config();
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
-  service: "smtp.gmail.com",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   requireTLS: true,
+  family:4,
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ SMTP ERROR:", error);
+  } else {
+    console.log("✅ SMTP READY");
+  }
 });
 
 let getHtmlAsPerTopic=(topic,order)=>{
@@ -37,10 +49,20 @@ async function sendMail(topic,to, subject, order) {
       subject,
       html,
     };
-    await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${to}`);
+      console.log("📤 Sending email to:", to);
+
+    const result = await transporter.sendMail(mailOptions);
+
+    console.log("✅ Email sent:", result.messageId);
+
+    return result;
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("❌ SMTP ERROR:", {
+      code: error.code,
+      command: error.command,
+      message: error.message,
+    });
+
     throw error;
   }
 }
