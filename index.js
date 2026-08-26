@@ -104,6 +104,25 @@ io.on("connection", (socket) => {
   });
 });
 
+// const { sendMail } = require("./utils/sendMail");
+
+// sendMail(
+//   "send-otp",
+//   "saurabhtambolkar22@gmail.com",
+//   "Test OTP Email",
+//   {
+//     name: "Saurabh Tambolkar",
+//     email: "saurabhtambolkar22@gmail.com",
+//     otp: "123456",
+//   }
+// )
+//   .then((res) => {
+//     console.log("🎉 Dummy email sent",res);
+//   })
+//   .catch((error) => {
+//     console.error("❌ Dummy email failed:", error);
+//   });
+
 async function start() {
   try {
     await ConnectDb();
